@@ -376,35 +376,44 @@ async function submitForm() {
       finalGrandTotal: parseFloat($("invoiceDetails").querySelector(".invoice-table strong:last-child")?.textContent.replace('₹', '') || "0")
     };
 
-    const sheetSubmitRes = await fetch(SHEET_SUBMIT_URL, {
+    async function submitForm() {
+  if (!$("acknowledge").checked) return alert("Please confirm accuracy.");
+
+  const formData = new FormData();
+  Object.entries(customerInfo).forEach(([k,v]) => formData.append(k,v));
+
+  const carwashBefore = $("carwashBefore")?.files[0];
+  const carwashAfter  = $("carwashAfter")?.files[0];
+  const tyreBefore    = $("tyreBefore")?.files[0];
+  const tyreAfter     = $("tyreAfter")?.files[0];
+
+  if (carwashBefore) formData.append("carwashBefore", carwashBefore);
+  if (carwashAfter)  formData.append("carwashAfter",  carwashAfter);
+  if (tyreBefore)    formData.append("tyreBefore",    tyreBefore);
+  if (tyreAfter)     formData.append("tyreAfter",     tyreAfter);
+
+  try {
+    await fetch(DRIVE_UPLOAD_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(sheetPayload)
+      body: formData,
+      mode: "no-cors"
     });
 
-    if (!sheetSubmitRes.ok) {
-      const errorText = await sheetSubmitRes.text();
-      throw new Error(`Sheet submission failed: ${sheetSubmitRes.status} ${sheetSubmitRes.statusText} - ${errorText}`);
-    }
+    // Since we can't read the response from no-cors, skip URL handling and just send the sheet data
+    const sheetPayload = { ...customerInfo, timestamp: new Date().toISOString() };
+
+    await fetch(SHEET_SUBMIT_URL, {
+      method: "POST",
+      body: JSON.stringify(sheetPayload),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      mode: "no-cors"
+    });
 
     showPage("page-thankyou");
-    // Clear form or reset state if needed
-    localStorage.clear(); // Clear all drafts after successful submission
-    selectedPages = []; // Reset selected pages
-    currentIndex = 0; // Reset index
-    customerInfo = {}; // Clear customer info
-    document.querySelectorAll('input').forEach(input => { // Reset all input values
-      if (input.type !== 'submit' && input.type !== 'button' && input.type !== 'hidden' && input.type !== 'checkbox') {
-        input.value = '';
-      } else if (input.type === 'checkbox') {
-        input.checked = false;
-      }
-    });
-    document.querySelectorAll('.btn-service.active').forEach(btn => btn.classList.remove('active')); // Deselect service buttons
-
-
   } catch (err) {
-    alert("Submission failed. Please check the console for details.");
-    console.error("Submission error:", err);
+    alert("Submission failed. Please try again.");
+    console.error(err);
   }
 }
