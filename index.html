@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Big Engine – Car Service Form</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js"></script>
+</head>
+<body>
+  <header class="form-header">
+    <img src="logo.png" alt="A Big Engine Logo" class="logo" />
+    <h1>Service Form Portal</h1>
+  </header>
+
+  <!-- CUSTOMER DETAILS -->
+  <section class="page active" id="page-customer">
+    <h2>Customer Details</h2>
+    <input id="firstName" placeholder="First Name" />
+    <div class="error-msg" id="err-firstName"></div>
+    <input id="lastName" placeholder="Last Name" />
+    <div class="error-msg" id="err-lastName"></div>
+    <input id="address" placeholder="Street Address" />
+    <div class="error-msg" id="err-address"></div>
+    <input id="phone" placeholder="Mobile Number" />
+    <div class="error-msg" id="err-phone"></div>
+    <input id="carNumber" placeholder="Car Number" />
+    <div class="error-msg" id="err-carNumber"></div>
+    <input id="carModel" placeholder="Car Brand & Model" />
+    <div class="error-msg" id="err-carModel"></div>
+    <div class="actions">
+      <button type="button" id="btnToServices">Next →</button>
+      <!-- Optional: Add a save draft button here if desired -->
+      <!-- <button type="button" class="btnSaveDraft" data-page="page-customer">Save Draft</button> -->
+    </div>
+  </section>
+
+  <!-- SERVICE SELECTION -->
+  <section class="page" id="page-select">
+    <h2>Select Services</h2>
+    <div class="button-group">
+      <button type="button" class="btn-service" data-service="carwash">Car Washing</button>
+      <button type="button" class="btn-service" data-service="tyre">Tyre Replacement</button>
+      <button type="button" class="btn-service" data-service="battery">Battery Replacement</button>
+      <button type="button" class="btn-service" data-service="addon">Add-ons</button>
+    </div>
+    <div class="actions">
+      <button type="button" class="btnBack">◀ Back</button>
+      <button type="button" id="btnStartFlow">Next →</button>
+    </div>
+  </section>
+
+  <!-- CAR WASHING -->
+  <section class="page" id="page-carwash">
+    <h2>Car Washing</h2>
+    <div class="qty-control">
+      <label>Quantity:</label>
+      <button class="btn-minus">-</button>
+      <input id="carwashQty" type="number" value="1" readonly />
+      <button class="btn-plus">+</button>
+    </div>
+    <!-- The carwashTotal input is now user-editable -->
+    <input id="carwashTotal" placeholder="Total Amount (₹)" />
+    <label>Before Photo:</label><input type="file" id="carwashBefore" />
+    <label>After Photo:</label><input type="file" id="carwashAfter" />
+    <div class="actions">
+      <button type="button" class="btnBack">◀ Back</button>
+      <!-- Optional: Add a save draft button here if desired -->
+      <!-- <button type="button" class="btnSaveDraft" data-page="page-carwash">Save Draft</button> -->
+      <button type="button" class="btnNext">Next →</button>
+    </div>
+  </section>
+
+  <!-- TYRE REPLACEMENT -->
+  <section class="page" id="page-tyre">
+    <h2>Tyre Replacement</h2>
+    <div class="qty-control">
+      <label>Quantity:</label>
+      <button class="btn-minus">-</button>
+      <input id="tyreQty" type="number" value="1" readonly />
+      <button class="btn-plus">+</button>
+    </div>
+    <!-- ADDED: Container for dynamically generated DOT fields -->
+    <div id="dotFieldsContainer"></div>
+    <!-- The tyreTotal input is now user-editable -->
+    <input id="tyreTotal" placeholder="Total Amount (₹)" />
+    <label>Before Photo:</label><input type="file" id="tyreBefore" />
+    <label>After Photo:</label><input type="file" id="tyreAfter" />
+    <div class="actions">
+      <button type="button" class="btnBack">◀ Back</button>
+      <!-- Optional: Add a save draft button here if desired -->
+      <!-- <button type="button" class="btnSaveDraft" data-page="page-tyre">Save Draft</button> -->
+      <button type="button" class="btnNext">Next →</button>
+    </div>
+  </section>
+
+  <!-- BATTERY REPLACEMENT -->
+  <section class="page" id="page-battery">
+    <h2>Battery Replacement</h2>
+    <div class="qty-control">
+      <label>Quantity:</label>
+      <button class="btn-minus">-</button>
+      <input id="batteryQty" type="number" value="1" readonly />
+      <button class="btn-plus">+</button>
+    </div>
+    <!-- ADDED: Container for dynamically generated Serial fields -->
+    <div id="batteryFieldsContainer"></div>
+    <!-- The batteryTotal input is now user-editable -->
+    <input id="batteryTotal" placeholder="Total Amount (₹)" />
+    <div class="actions">
+      <button type="button" class="btnBack">◀ Back</button>
+      <!-- Optional: Add a save draft button here if desired -->
+      <!-- <button type="button" class="btnSaveDraft" data-page="page-battery">Save Draft</button> -->
+      <button type="button" class="btnNext">Next →</button>
+    </div>
+  </section>
+
+  <!-- ADD-ONS -->
+  <section class="page" id="page-addon">
+    <h2>Add-on Services</h2>
+    <label>Standard Wash:</label><input type="number" id="washQty" value="0" />
+    <label>Interior Cleaning:</label><input type="number" id="interiorQty" value="0" />
+    <label>Premium Wash:</label><input type="number" id="premiumQty" value="0" />
+    <label>Wax Service:</label><input type="number" id="waxQty" value="0" />
+    <label>Engine Detailing:</label><input type="number" id="engineQty" value="0" />
+    <label>Wheel Balancing:</label><input type="number" id="balanceQty" value="0" />
+    <label>Total:</label><input id="addonsTotal" readonly />
+    <div class="actions">
+      <button type="button" class="btnBack">◀ Back</button>
+      <!-- Optional: Add a save draft button here if desired -->
+      <!-- <button type="button" class="btnSaveDraft" data-page="page-addon">Save Draft</button> -->
+      <button type="button" class="btnNext">Next →</button>
+    </div>
+  </section>
+
+  <!-- INVOICE -->
+  <section class="page" id="page-invoice">
+    <h2>Invoice Summary</h2>
+    <div id="invoiceDetails"></div>
+    <h3>Custom Services</h3>
+    <div id="customServicesContainer"></div>
+    <button type="button" id="btnAddCustomService">+ Add Custom</button>
+    <button type="button" id="btnRecalculate">🔄 Recalculate Invoice</button>
+    <button type="button" id="btnPrint" >Print 
+     </button>
+    <label><input type="checkbox" id="acknowledge" /> Confirm accuracy</label>
+    <div class="actions">
+      <button type="button" class="btnBack">◀ Back</button>
+      <!-- Optional: Add a save draft button here if desired -->
+      <!-- <button type="button" class="btnSaveDraft" data-page="page-invoice">Save Draft</button> -->
+      <!-- Optional: Add a print button here if desired -->
+      <!-- <button type="button" id="btnPrint">🖨 Print</button> -->
+      <button type="button" id="btnSubmit">Submit</button>
+    </div>
+  </section>
+
+  <!-- THANK YOU -->
+  <section class="page" id="page-thankyou">
+    <h2>Thank You!</h2>
+    <p>Your form has been submitted successfully.</p>
+  </section>
+  <!-- …all your sections… -->
+
+  <!-- 4. Submission script: place before </body> -->
+  <script>
+    // 1. Your Apps Script web-app URL
+    const scriptURL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+
+    // 2. Grab the “Submit” button
+    const submitBtn = document.getElementById('btnSubmit');
+
+    submitBtn.addEventListener('click', e => {
+      e.preventDefault();
+
+      // 3. Build FormData
+      const formData = new FormData();
+
+      // 3a. Text fields
+      ['firstName','lastName','address','phone','carNumber','carModel']
+        .forEach(id => {
+          formData.append(id, document.getElementById(id).value);
+        });
+
+      // 3b. File inputs
+      ['carwashBefore','carwashAfter','tyreBefore','tyreAfter']
+        .forEach(id => {
+          const input = document.getElementById(id);
+          if (input.files.length) {
+            formData.append(id, input.files[0], input.files[0].name);
+          }
+        });
+
+      // 4. Send to Apps Script
+      fetch(scriptURL, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors'    // suppresses CORS errors in browser
+      })
+      .then(() => {
+        console.log('✅ Upload request sent');
+        // Optionally show “Thank you” page
+        document.getElementById('page-thankyou').classList.add('active');
+      })
+      .catch(err => {
+        console.error('❌ Upload error:', err);
+      });
+    });
+  </script>
+</body>
+</html>
+</body>
+</html>
