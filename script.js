@@ -4,8 +4,8 @@
 // ===============================
 
 // CONFIGURATION: Replace with actual Google Apps Script endpoints
-const DRIVE_UPLOAD_URL = "https://script.google.com/macros/s/AKfycbwf63T2tc0DhCI1pp6NAYHD1zpMgHsgFXd-SPNHaoKudss6nopizdsylRyh1pK2WZ-N/exec";
-const SHEET_SUBMIT_URL = "https://script.google.com/macros/s/AKfycbyQ_DPaYxSPvaEWykwcR0w6kdRwIE0qgBbhl_B4W-Xici_FhdmCkBogw2JhAYY-3zCgaQ/exec";
+const DRIVE_UPLOAD_URL = "https://script.google.com/macros/s/AKfycby6FenWR0BG3J2Kqv_Y2V_5A57WesCjsKQYtG-tYph6QCRl_lWSDDe00QFXfdIo9D0/exec";
+const SHEET_SUBMIT_URL = "https://script.google.com/macros/s/AKfycbwjhtJOmL7wgmZA3tFp9lfk9xuKZEgfOK2sOsH_I2w-cA2_iPOIiB_XNDc9fX8v4ABpPg/exec";
 const $ = id => document.getElementById(id);
 
 // GLOBAL STATE
